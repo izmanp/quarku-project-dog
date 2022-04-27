@@ -29,15 +29,16 @@ public class DogsResource {
     @Path("breed/{breed}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getByBreed(@PathParam("breed") String breed){
-       List<DogsEntity> dogs = DogsEntity.list("Select m FROM DogsEntity m WHERE m.breed = ?1 ORDER BY id " +
-                "DESC",breed);
-        return Response.ok(dogs).build();
+        return DogsEntity.find("breed", breed)
+                .singleResultOptional()
+                .map(dogs -> Response.ok(dogs).build())
+                .orElse(Response.status(Response.Status.NOT_FOUND).build());
 
     }
     @GET
     @Path("year/{year}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getByYear(@PathParam("year") String year){
+    public Response getByYear(@PathParam("year") int year){
        return DogsEntity.find("year", year)
                 .singleResultOptional()
                 .map(dogs -> Response.ok(dogs).build())
@@ -57,7 +58,8 @@ public class DogsResource {
         return Response.status(Response.Status.BAD_REQUEST).build();
     }
     @DELETE
-    @Path("id")
+    @Path("delete/{id}")
+    @Transactional
     public Response deleteById(@PathParam("id") Long id){
         boolean deleted = DogsEntity.deleteById(id);
         if(deleted){

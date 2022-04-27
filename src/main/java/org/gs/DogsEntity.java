@@ -2,10 +2,7 @@ package org.gs;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.transaction.Status;
 import java.util.List;
 
@@ -13,11 +10,13 @@ import java.util.List;
 @Entity
 public class DogsEntity extends PanacheEntity {
 
-    @Column(length = 100)
+
     private String name;
-    @Column(length = 100)
+
     private String breed;
+
     private int year;
+
     private String color;
 
 
