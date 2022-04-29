@@ -14,6 +14,7 @@ public class DogsResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAll(){
         List<DogsEntity> dogs = DogsEntity.listAll();
+
         return Response.ok(dogs).build();
 }
     @GET
@@ -25,27 +26,21 @@ public class DogsResource {
                 .orElse(Response.status(Response.Status.NOT_FOUND).build());
 
 }
+
     @GET
-    @Path("breed/{breed}")
+    @Path("age/{age}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getByBreed(@PathParam("breed") String breed){
-        return DogsEntity.find("breed", breed)
+    public Response getByYear(@PathParam("age") int age){
+      return DogsEntity.find("age", age)
                 .singleResultOptional()
                 .map(dogs -> Response.ok(dogs).build())
                 .orElse(Response.status(Response.Status.NOT_FOUND).build());
 
-    }
-    @GET
-    @Path("year/{year}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getByYear(@PathParam("year") int year){
-       return DogsEntity.find("year", year)
-                .singleResultOptional()
-                .map(dogs -> Response.ok(dogs).build())
-                .orElse(Response.status(Response.Status.NOT_FOUND).build());
+
 
     }
-    @GET
+
+    @POST
     @Transactional
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
@@ -57,6 +52,19 @@ public class DogsResource {
         }
         return Response.status(Response.Status.BAD_REQUEST).build();
     }
+    @PUT
+    @Path("put/{id}")
+    @Transactional
+    public DogsEntity update( Long id, DogsEntity dogs) {
+        DogsEntity entity = DogsEntity.findById(id);
+        if(entity == null) {
+            throw new NotFoundException();
+        }
+        entity.name = dogs.name;
+
+        return entity;
+    }
+
     @DELETE
     @Path("delete/{id}")
     @Transactional
@@ -67,4 +75,7 @@ public class DogsResource {
         }
         return Response.status(Response.Status.BAD_REQUEST).build();
     }
+
+
+
 }
