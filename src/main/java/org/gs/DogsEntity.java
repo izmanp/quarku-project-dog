@@ -19,6 +19,9 @@ public class DogsEntity extends PanacheEntity {
     public int age;
     @Enumerated(STRING)
     public Color color;
+    @OneToOne(cascade =  CascadeType.ALL)
+    @JoinColumn(name = "race_id")
+    public RaceEntity race;
 
 
 
