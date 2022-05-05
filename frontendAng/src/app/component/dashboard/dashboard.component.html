@@ -1,0 +1,176 @@
+<div class="container-fluid">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Dog Management</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+    </div>
+
+  </nav>
+  <nav class="navbar navbar-light bg-light">
+    <div class="container-fluid">
+      <form class="d-flex">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+
+      </form>
+      <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#addDog" type="submit">Add Dog</button>
+
+    </div>
+  </nav>
+  <!--<table class="table table-hover">
+    <thead>
+    <tr>
+      <th scope="col">Dog ID</th>
+      <th scope="col">Name</th>
+      <th scope="col">Age</th>
+      <th scope="col">Color</th>
+      <th scope="col">Race</th>
+      <th scope="col">Description</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor = "let dog of dogList">
+      <td >{{dog.id}}</td>
+      <td >{{dog.name}}</td>
+      <td >{{dog.age}}</td>
+      <td >{{dog.color}}</td>
+      <td >{{dog.race}}</td>
+      <td >{{dog.description}}</td>
+
+      <td>
+        <button type="button" class="btn btn-outline-primary me-2" data-bs-toggle="modal" data-bs-target="#editDog" (click)="editDog(dog)" >Edit</button>
+        <button type="button" class="btn btn-outline-danger" (click)="deleteDog(dog)">Delete</button>
+
+
+      </td>
+    </tr>
+
+    </tbody>
+  </table>-->
+  <nz-table #basicTable >
+    <thead>
+    <tr>
+      <th scope="col">Dog ID</th>
+      <th scope="col">Name</th>
+      <th scope="col">Age</th>
+      <th scope="col">Color</th>
+      <th scope="col">Race</th>
+      <th scope="col">Description</th>
+      <th scope="col">Action</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor = "let dog of dogList">
+      <td >{{dog.id}}</td>
+      <td >{{dog.name}}</td>
+      <td >{{dog.age}}</td>
+      <td >{{dog.color}}</td>
+      <td >{{dog.race}}</td>
+      <td >{{dog.description}}</td>
+
+      <td>
+
+
+        <button type="button" class="btn btn-outline-primary me-2" data-bs-toggle="modal" data-bs-target="#editDog" (click)="editDog(dog)" >Edit</button>
+        <button type="button" class="btn btn-outline-danger" (click)="deleteDog(dog)">Delete</button>
+      </td>
+    </tr>
+    </tbody>
+  </nz-table>
+
+  <!-- Add dogModal -->
+  <div class="modal fade" id="addDog" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add new dog</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="dog">
+            <div class="mb-3">
+              <label for="name" class="form-label">Name</label>
+              <input type="text" formControlName="name" class="form-control" id="name" aria-describedby="emailHelp">
+            </div>
+            <div class="mb-3">
+              <label for="age" class="form-label">Age</label>
+              <input type="text"formControlName="age" class="form-control" id="age" aria-describedby="emailHelp">
+            </div>
+            <div class="mb-3">
+              <label for="color" class="form-label">Color</label>
+              <input type="text"formControlName="color" class="form-control" id="color" aria-describedby="emailHelp">
+            </div>
+            <div class="mb-3">
+              <label for="race" class="form-label">Race</label>
+              <input type="text"formControlName="color" class="form-control" id="race" aria-describedby="emailHelp">
+            </div>
+            <div class="mb-3">
+              <label for="description" class="form-label">Description</label>
+              <input type="text"formControlName="color" class="form-control" id="description" aria-describedby="emailHelp">
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary"data-bs-dismiss="modal"(click)="addDog()">Add Dog</button>
+            </div>
+
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!-- Button trigger modal -->
+
+
+  <!-- EditDog -->
+  <div class="modal fade" id="editDog" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Edit Dog</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        =
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="dog">
+            <div class="mb-3">
+              <label for="name" class="form-label">Name</label>
+              <input type="text" formControlName="name" class="form-control" id="name" aria-describedby="emailHelp">
+            </div>
+            <div class="mb-3">
+              <label for="age" class="form-label">Age</label>
+              <input type="text"formControlName="age" class="form-control" id="age" aria-describedby="emailHelp">
+            </div>
+            <div class="mb-3">
+              <label for="color" class="form-label">Color</label>
+              <input type="text"formControlName="color" class="form-control" id="color" aria-describedby="emailHelp">
+            </div>
+            <div class="mb-3">
+              <label for="race" class="form-label">Race</label>
+              <input type="text"formControlName="color" class="form-control" id="race" aria-describedby="emailHelp">
+            </div>
+            <div class="mb-3">
+              <label for="description" class="form-label">Description</label>
+              <input type="text"formControlName="color" class="form-control" id="description" aria-describedby="emailHelp">
+            </div>
+
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-outline-success " (click)="updateDog()"  data-bs-dismiss="modal">Update</button>
+            </div>
+
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
